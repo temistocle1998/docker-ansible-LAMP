@@ -1,0 +1,42 @@
+---
+- hosts: dev_db
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: MySQL | Install
+      apt:
+        name:
+          - mysql-server
+          - python-mysqldb
+          - php-mysql
+        state: present
+
+    - name: Write root login credentials
+      copy:
+        dest: /root/.my.cnf
+        owner: root
+        group: root
+        mode: 0600
+        content: |
+          [client]
+          user=root
+          password=
+
+    - name: Start mysql service
+      service:
+        name: mysql
+        state: started
+        enabled: true
+
+    - name: Mysql | set root password
+      mysql_user:
+        name: root
+        login_user: root
+        login_password: 
+        password: 
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        check_implicit_admin: yes
+        state: present
+
+

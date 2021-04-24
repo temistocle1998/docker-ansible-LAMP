@@ -1,0 +1,7 @@
+---
+mysql_root_password: "mysql_root_password"
+app_user: "root"
+http_host: "samane.sn"
+http_conf: "samane.sn.conf"
+http_port: "80"
+disable_default: true
